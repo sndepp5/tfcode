@@ -54,13 +54,13 @@ jobs:
           terraform plan -out=plan.tfplan
 
       - name: Upload Terraform Plan
-        uses: actions/upload-artifact@v2
+        #uses: actions/upload-artifact@v2
         with:
           name: plan.tfplan
           path: ./github
           
       - name: Download Terraform plan
-        uses: actions/download-artifact@v2
+        #uses: actions/download-artifact@v2
         with:
            name: plan.tfplan
            path: ./s3mod
