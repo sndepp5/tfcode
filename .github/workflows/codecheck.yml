@@ -57,7 +57,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: plan.tfplan
-          path: ./s3mod
+          path: ./github
           
       - name: Download Terraform plan
         uses: actions/download-artifact@v2
