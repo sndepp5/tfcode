@@ -49,3 +49,17 @@ resource "aws_s3_bucket_logging" "logexp" {
   target_bucket = aws_s3_bucket.logbucket.id
   target_prefix = "log/"
 }
+
+resource "aws_s3_bucket_versioning" "versioning_example" {
+  bucket = aws_s3_bucket.bucket.id
+  versioning_configuration {
+    status = "Enabled"
+  }
+}
+
+resource "aws_s3_bucket_versioning" "versioning_example" {
+  bucket = aws_s3_bucket.logbucket.id
+  versioning_configuration {
+    status = "Enabled"
+  }
+}
