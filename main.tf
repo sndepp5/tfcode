@@ -10,7 +10,7 @@ resource "aws_s3_bucket" "bucket" {
 }
 
 resource "aws_s3_bucket_public_access_block" "accessblk" {
-    bucket = aws_s3_bucket.buckett.id
+    bucket = aws_s3_bucket.bucket.id
 
     block_public_acls = true
     block_public_policy = true
