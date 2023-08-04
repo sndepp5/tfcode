@@ -27,11 +27,11 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: eu-central-1
 
-      #- name: Checkov GitHub Action
-      #  uses: bridgecrewio/checkov-action@v12
-      #  with:
-      #    output_format: cli,sarif
-      #    output_file_path: console,results.sarif
+      - name: Checkov GitHub Action
+        uses: bridgecrewio/checkov-action@v12
+        with:
+          output_format: cli,sarif
+          output_file_path: console,results.sarif
 
       - name: Run Terrascan
         id: terrascan
@@ -41,41 +41,3 @@ jobs:
           iac_version: 'v14'
           policy_type: 'aws'
           only_warn: true
-
-      - name: Validate terraform code
-        run: |
-          terraform init -backend=false
-          terraform validate
-          #terraform fmt -check -write=false
-
-      - name: Create Terraform Plan
-        run: |
-          terraform init
-          terraform plan -out=plan.tfplan
-
-      - name: Upload Terraform Plan
-        uses: actions/upload-artifact@v2
-        with:
-          name: plan.tfplan
-          #path: ./s3mod
-          
-      - name: Download Terraform plan
-        uses: actions/download-artifact@v2
-        with:
-           name: plan.tfplan
-           #path: ./s3mod
-      
-      - name: Apply Terraform Plan
-        run: |
-          terraform apply -auto-approve plan.tfplan
-
-      - name: Retrieve Terraform output
-        run: |
-           terraform init -reconfigure
-           terraform output -json > output.json
-
-      - name: Download terraform state file                
-        run: |
-           terraform init -reconfigure
-           terraform state pull
-          
