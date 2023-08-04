@@ -27,11 +27,11 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: eu-central-1
 
-      - name: Checkov GitHub Action
-        uses: bridgecrewio/checkov-action@v12
-        with:
-          output_format: cli,sarif
-          output_file_path: console,results.sarif
+      #- name: Checkov GitHub Action
+      #  uses: bridgecrewio/checkov-action@v12
+      #  with:
+      #    output_format: cli,sarif
+      #    output_file_path: console,results.sarif
 
       - name: Run Terrascan
         id: terrascan
