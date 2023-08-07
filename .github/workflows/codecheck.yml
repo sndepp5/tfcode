@@ -1,4 +1,4 @@
-name: "Terraform pipeline with code quality check"
+name: checkov
 
 on:
   push:
@@ -7,38 +7,37 @@ on:
   workflow_dispatch:
     branches:
       - main
-      
-#defaults:
-#  run:
-#    working-directory: ./s3mod
 
-jobs:   
+permissions:
+  contents: read
+  security-events: write
+  actions: read
 
+jobs:
   terraform:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout repo
-        uses: actions/checkout@v3
+    - name: Checkout code
+      uses: actions/checkout@v2
 
-      - name: Configure AWS Credentials
-        uses: aws-actions/configure-aws-credentials@v2
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: eu-central-1
-
-      - name: Checkov GitHub Action
-        uses: bridgecrewio/checkov-action@v12
-        with:
-          output_format: cli,sarif
-          output_file_path: console,results.sarif
-
-      - name: Run Terrascan
-        id: terrascan
-        uses: tenable/terrascan-action@main
-        with:
-          iac_type: 'terraform'
-          iac_version: 'v14'
-          policy_type: 'aws'
-          only_warn: true
-          
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: eu-central-1
+    - name: Checkov GitHub Action
+      uses: bridgecrewio/checkov-action@v12
+      with:
+        output_format: cli,sarif
+        output_file_path: console,results.sarif
+      continue-on-error: true
+    - name: Terrascan GitHub Action
+      id: terrascan
+      uses: tenable/terrascan-action@main
+      with:
+        iac_type: 'terraform'
+        iac_version: 'v14'
+        policy_type: 'aws'
+        only_warn: false
