@@ -37,10 +37,10 @@ jobs:
         policy_type: 'aws'
         only_warn: false
 
-  #   - name: deploy part
-  #     run: |
-  #       #!/bin/bash
-
+    - name: deploy part
+      run: |
+        #!/bin/bash
+        echo 999
 
   # Terraform:
   #   runs-on: ubuntu-latest
