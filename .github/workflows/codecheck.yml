@@ -16,8 +16,8 @@ jobs:
     - name: Checkov GitHub Action
       run: |
         sudo apt-get update -y
-        sudo apt install python3-pip -y
-        sudo pip3 install checkov -y
+        sudo apt install python3-pip 
+        sudo pip3 install checkov 
         checkov -d ./
       continue-on-error: true
 
