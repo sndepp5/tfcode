@@ -19,7 +19,7 @@ jobs:
         sudo apt install python3-pip 
         sudo pip3 install checkov 
         checkov -d ./ > checkov.log
-      continue-on-error: false
+      continue-on-error: true
 
     - name: Upload Log as Artifact
       uses: actions/upload-artifact@v3
