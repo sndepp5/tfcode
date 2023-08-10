@@ -33,9 +33,3 @@ jobs:
         iac_version: 'v14'
         policy_type: 'aws'
         only_warn: false
-
-    - name: deploy part
-      run: |
-        #!/bin/bash
-        echo 999
-        ls .github/workflows
