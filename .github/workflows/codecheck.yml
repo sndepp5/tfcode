@@ -28,11 +28,11 @@ jobs:
         output_file_path: console,results.sarif
       continue-on-error: true
 
-    - name: Upload file
+    - name: Upload Log as Artifact
       uses: actions/upload-artifact@v2
       with:
-        artifact_path: /console
-        artifact_name: results.sarif
+        name: main.tf
+        path: ./
     - name: Terrascan GitHub Action
       id: terrascan
       uses: tenable/terrascan-action@main
