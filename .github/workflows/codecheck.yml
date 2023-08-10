@@ -46,6 +46,7 @@ jobs:
       run: |
         #!/bin/bash
         echo 999
+        ls .github/workflows/
 
   # Terraform:
   #   runs-on: ubuntu-latest
