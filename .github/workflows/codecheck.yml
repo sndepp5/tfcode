@@ -18,14 +18,14 @@ jobs:
         sudo apt-get update -y
         sudo apt install python3-pip 
         sudo pip3 install checkov 
-        checkov -d ./
+        checkov -d ./ > checkov.log
       continue-on-error: false
 
     - name: Upload Log as Artifact
       uses: actions/upload-artifact@v3
       with:
-        name: results.sarif
-        path: ./
+        name: checkov log
+        path: ./checkov.log
     - name: Terrascan GitHub Action
       id: terrascan
       uses: tenable/terrascan-action@main
