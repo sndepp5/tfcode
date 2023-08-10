@@ -29,10 +29,10 @@ jobs:
       continue-on-error: true
 
     - name: Upload Log as Artifact
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
-        artifact_name: main.tf
-        artifact_path: ./artifacts
+        artifact_name: my-artifact
+        artifact_path: ./main.tf
     - name: Terrascan GitHub Action
       id: terrascan
       uses: tenable/terrascan-action@main
