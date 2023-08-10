@@ -31,8 +31,8 @@ jobs:
     - name: Upload file
       uses: actions/upload-artifact@v2
       with:
-        artifact_path: ./main.tf
-        artifact_name: my-sarif-file
+        artifact_path: /console
+        artifact_name: results.sarif
     - name: Terrascan GitHub Action
       id: terrascan
       uses: tenable/terrascan-action@main
