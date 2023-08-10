@@ -28,6 +28,11 @@ jobs:
         output_file_path: console,results.sarif
       continue-on-error: true
 
+    - name: Upload file
+      uses: actions/upload-artifact@v2
+      with:
+        artifact_path: ./main.tf
+        artifact_name: my-sarif-file
     - name: Terrascan GitHub Action
       id: terrascan
       uses: tenable/terrascan-action@main
