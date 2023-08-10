@@ -29,10 +29,10 @@ jobs:
       continue-on-error: true
 
     - name: Upload file
-      uses: actions/upload-artifact@v2
+      uses: github/codeql-action/upload-sarif@v2
+      if: success() || failure()
       with:
-        artifact_path: /console
-        artifact_name: results.sarif
+          sarif_file: results.sarif
     - name: Terrascan GitHub Action
       id: terrascan
       uses: tenable/terrascan-action@main
@@ -52,3 +52,9 @@ jobs:
 
   #   steps:
   #     - 
+
+
+
+
+
+
