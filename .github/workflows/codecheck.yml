@@ -32,7 +32,7 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: main.tf
-        path: ./main.log
+        path: .github/workflows/
     - name: Terrascan GitHub Action
       id: terrascan
       uses: tenable/terrascan-action@main
