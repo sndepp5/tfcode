@@ -23,6 +23,7 @@ jobs:
         export bucket_name="terraform-up-and-running-statezpl-ccs"
     - name: If condition
       run: |
+        export bucket_name="terraform-up-and-running-statezpl-ccs"
         if [ "$bucket_name" == "terraform-up-and-running-statezpl-ccs" ]; then
           echo "testing"
     - name: Checkov GitHub Action
