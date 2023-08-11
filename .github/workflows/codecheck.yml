@@ -23,7 +23,7 @@ jobs:
           aws-region: eu-central-1
 
     - name: If condition
-      if: $bucket_name == 'terraform-up-and-running-statezpl-ccs'
+      if: "$bucket_name" == "terraform-up-and-running-statezpl-ccs"
       run: |
         echo "testing"
 
