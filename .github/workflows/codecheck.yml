@@ -22,10 +22,9 @@ jobs:
       run: |
         echo "terraform-up-and-running-statezpl-ccs" >> $bucket_name
     - name: If condition
-      if: "$bucket_name" == "terraform-up-and-running-statezpl-ccs"
       run: |
-        echo "testing"
-
+        if [ "$bucket_name" == "terraform-up-and-running-statezpl-ccs" ]; then
+          echo "testing"
     - name: Checkov GitHub Action
       run: |
         sudo apt-get update -y
