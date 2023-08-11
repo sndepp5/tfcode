@@ -20,7 +20,7 @@ jobs:
           aws-region: eu-central-1
     - name: Setting bucket name
       run: |
-        echo "terraform-up-and-running-statezpl-ccs" >> $bucket_name
+        export bucket_name="terraform-up-and-running-statezpl-ccs"
     - name: If condition
       run: |
         if [ "$bucket_name" == "terraform-up-and-running-statezpl-ccs" ]; then
