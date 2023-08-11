@@ -8,6 +8,8 @@ on:
 jobs:
   Codecheck:
     runs-on: ubuntu-latest
+    env:
+      BUCKET_NAME: terraform-up-and-running-statezpl-ccs
     steps:
     - name: Checkout code
       uses: actions/checkout@v3
@@ -18,13 +20,13 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: eu-central-1
-    - name: Setting bucket name
-      run: |
-        export bucket_name="terraform-up-and-running-statezpl-ccs"
+    # - name: Setting bucket name
+    #   run: |
+    #     export bucket_name="terraform-up-and-running-statezpl-ccs"
     - name: If condition
       run: |
         export bucket_name="terraform-up-and-running-statezpl-ccs"
-        if [ "$bucket_name" == "terraform-up-and-running-statezpl-ccs" ]; then
+        if [ "$BUCKET_NAME" == "terraform-up-and-running-statezpl-ccs" ]; then
           echo "testing"
     - name: Checkov GitHub Action
       run: |
