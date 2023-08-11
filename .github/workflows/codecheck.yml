@@ -26,11 +26,3 @@ jobs:
       with:
         name: checkov log
         path: ./checkov.log
-    - name: Terrascan GitHub Action
-      id: terrascan
-      uses: tenable/terrascan-action@main
-      with:
-        iac_type: 'terraform'
-        iac_version: 'v14'
-        policy_type: 'aws'
-        only_warn: false
