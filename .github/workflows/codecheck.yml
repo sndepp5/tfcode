@@ -31,7 +31,7 @@ jobs:
     - name: condition 
       if: ${{ env.bucket_name == 'test' }}
       run: |
-        cd /backend
+        cd backend
         terraform init
         terraform apply -auto-approve
 
