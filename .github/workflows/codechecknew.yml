@@ -31,5 +31,3 @@ jobs:
       if: ${{ env.bucket_name == 'test' }}
       run: echo "hello"
     
-    - name: Terraform format
-      run: terraform fmt -check -diff

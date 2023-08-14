@@ -38,5 +38,4 @@ jobs:
 
     - name: Terraform format
       run: |
-        if ! terraform fmt -check; then
-        fi
+        if ! terraform fmt -check; then; fi
