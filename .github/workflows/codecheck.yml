@@ -21,8 +21,8 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: eu-central-1
     - name: Setting bucket name
-      run: |
-        bucket_name="terraform-up-and-running-statezpl-ccs"
+      env:
+        bucket_name: "terraform-up-and-running-statezpl-ccs"
     - name: If condition
       if: bucket_name == "terraform-up-and-running-statezpl-ccs"
       run: |
