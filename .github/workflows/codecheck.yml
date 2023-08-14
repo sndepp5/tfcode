@@ -29,7 +29,7 @@ jobs:
       shell: bash
 
     - name: condition 
-      if: ${{ env.bucket_name != 'bshorg-ss-bucket-check' && env.dynamodb_name != 'bshorg-dynamodb-table-check' }}
+      if: ${{ env.bucket_name != 'success' && env.dynamodb_name != 'success' }}
       run: |
         cd backend
         sed -i 's/terraform-up-and-running-statezpl-ccs/${{ env.bucket_name }}/g' backend.tf
@@ -37,6 +37,9 @@ jobs:
         cat backend.tf
         terraform init
         terraform apply -auto-approve
+      env:
+        bucket_name: success
+        dynamodb_name: success
 
     - name: Checkov GitHub Action
       run: |
