@@ -20,12 +20,15 @@ jobs:
         sudo pip3 install checkov 
         checkov -d ./ > checkov.log
       continue-on-error: true
-
+    - name: Configure AWS credentials from Test account
+      uses: aws-actions/configure-aws-credentials@v2
+      with:
+          bucket_name: ${{ secrets.AWS_BUCKET_NAME }}
     - name: Upload Log as Artifact
       uses: actions/upload-artifact@v3
       with:
         name: checkov log
         path: ./checkov.log
     - name: condition 
-      if: runner.os != 'Windows'
+      if: $bucket_name != 'Windows'
       run: echo "The operating system on the runner is not Windows, it's $RUNNER_OS."
