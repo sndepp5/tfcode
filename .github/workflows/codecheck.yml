@@ -16,9 +16,9 @@ jobs:
       uses: actions/checkout@v3
 
     - name: Run script file
-      run: ./.github/scripts.sh
+      run: ./scripts.sh
       shell: bash
-      
+
     - name: Checkov GitHub Action
       run: |
         checkov -d ./ > checkov.log
