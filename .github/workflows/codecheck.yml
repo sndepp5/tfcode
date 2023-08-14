@@ -19,18 +19,22 @@ jobs:
       run: |
         chmod +x scripts.sh
         ./scripts.sh
-        terraform --version
       shell: bash
 
     - name: Checkov GitHub Action
       run: |
         checkov -d ./ > checkov.log
       continue-on-error: true
+    
     - name: Upload Log as Artifact
       uses: actions/upload-artifact@v3
       with:
         name: checkov log
         path: ./checkov.log
+    
     - name: condition 
       if: ${{ env.bucket_name == 'test' }}
       run: echo "hello"
+
+    - name: Terraform format
+      run: terraform fmt -check -diff
