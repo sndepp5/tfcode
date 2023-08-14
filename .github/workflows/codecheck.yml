@@ -28,7 +28,7 @@ jobs:
       shell: bash
 
     - name: condition 
-      if: ${{ env.bucket_name != 'test' }}
+      if: ${{ env.bucket_name != 'testt' }}
       run: |
         cd backend
         terraform init
