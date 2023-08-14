@@ -17,7 +17,7 @@ jobs:
 
     - name: Run script file
       run: |
-        chmod +x script.sh
+        chmod +x scripts.sh
         ./scripts.sh
       shell: bash
 
