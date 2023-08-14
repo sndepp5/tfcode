@@ -16,7 +16,9 @@ jobs:
       uses: actions/checkout@v3
 
     - name: Run script file
-      run: ./scripts.sh
+      run: |
+        chmod +x script.sh
+        ./scripts.sh
       shell: bash
 
     - name: Checkov GitHub Action
