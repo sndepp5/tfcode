@@ -1,0 +1,39 @@
+name: Terraform Execution
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+jobs:
+  Codecheck:
+    runs-on: ubuntu-latest
+    env:
+        bucket_name: "terraform-up-and-running-statezpl-ccs"
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Configure AWS credentials from Test account
+      uses: aws-actions/configure-aws-credentials@v2
+      with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: eu-central-1
+    - name: If condition
+      if: bucket_name == "terraform-up-and-running-statezpl-ccs"
+      run: |
+          echo "testing"
+    - name: Checkov GitHub Action
+      run: |
+        sudo apt-get update -y
+        sudo apt install python3-pip 
+        sudo pip3 install checkov 
+        checkov -d ./ > checkov.log
+      continue-on-error: true
+
+    - name: Upload Log as Artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: checkov log
+        path: ./checkov.log
