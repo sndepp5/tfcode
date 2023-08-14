@@ -15,11 +15,12 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v3
 
+    - name: Run script file
+      run: ./.github/scripts.sh
+      shell: bash
+      
     - name: Checkov GitHub Action
       run: |
-        sudo apt-get update -y
-        sudo apt install python3-pip 
-        sudo pip3 install checkov 
         checkov -d ./ > checkov.log
       continue-on-error: true
     - name: Upload Log as Artifact
