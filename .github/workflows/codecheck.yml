@@ -5,8 +5,8 @@ on:
       - main
   workflow_dispatch:
 env:
-  bucket_name: bshorg-ss-bucket
-  dynamodb_name: bshorg-dynamodb-table
+  bucket_name: bshorg-ss-bucket-check
+  dynamodb_name: bshorg-dynamodb-table-check
 jobs:
   Codecheck:
     runs-on: ubuntu-latest
