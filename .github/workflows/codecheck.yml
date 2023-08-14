@@ -19,6 +19,7 @@ jobs:
       run: |
         chmod +x scripts.sh
         ./scripts.sh
+        terraform --version
       shell: bash
 
     - name: Checkov GitHub Action
