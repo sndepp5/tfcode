@@ -28,5 +28,5 @@ jobs:
         name: checkov log
         path: ./checkov.log
     - name: condition 
-      if: ${{ env.bucket_name == 'test' }}
+      if: ${{ env.bucket_name == 'test1' }}
       run: echo "hello"
