@@ -1,0 +1,28 @@
+name: Terraform Execution
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+jobs:
+  Codecheck:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Checkov GitHub Action
+      run: |
+        sudo apt-get update -y
+        sudo apt install python3-pip 
+        sudo pip3 install checkov 
+        checkov -d ./ > checkov.log
+      continue-on-error: true
+
+    - name: Upload Log as Artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: checkov log
+        path: ./checkov.log
