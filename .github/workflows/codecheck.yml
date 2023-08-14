@@ -5,7 +5,7 @@ on:
       - main
   workflow_dispatch:
 env:
-  bucket_name: bshorg-s3-bucket
+  bucket_name: bshorg-ss-bucket
   dynamodb_name: bshorg-dynamodb-table
 jobs:
   Codecheck:
