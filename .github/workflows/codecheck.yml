@@ -5,7 +5,8 @@ on:
       - main
   workflow_dispatch:
 env:
-  bucket_name: test
+  bucket_name: bshorg-s3-bucket
+  dynamodb_name: bshorg-dynamodb-table
 jobs:
   Codecheck:
     runs-on: ubuntu-latest
@@ -28,9 +29,11 @@ jobs:
       shell: bash
 
     - name: condition 
-      if: ${{ env.bucket_name != 'testt' }}
+      if: ${{ env.bucket_name != 's3' && env.dynamodb_name != 'dynamo' }}
       run: |
         cd backend
+        sed -i 's/terraform-up-and-running-statezpl-ccs/env.bucket_name/g' backset.tf
+        sed -i 's/terraform-up-and-running-locks-ccs/env.dynamodb_name/g' backset.tf
         terraform init
         terraform apply -auto-approve
 
