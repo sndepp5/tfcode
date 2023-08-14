@@ -26,3 +26,6 @@ jobs:
       with:
         name: checkov log
         path: ./checkov.log
+    - name: condition 
+      if: runner.os != 'Windows'
+      run: echo "The operating system on the runner is not Windows, it's $RUNNER_OS."
