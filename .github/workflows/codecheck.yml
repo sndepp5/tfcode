@@ -15,11 +15,25 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v3
 
+    - name: Configure AWS Credentials
+      uses: aws-actions/configure-aws-credentials@v2
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: eu-central-1
+
     - name: Run script file
       run: |
         chmod +x scripts.sh
         ./scripts.sh
       shell: bash
+
+    - name: condition 
+      if: ${{ env.bucket_name == 'test' }}
+      run: |
+        cd /backend
+        terraform init
+        terraform apply -auto-approve
 
     - name: Checkov GitHub Action
       run: |
@@ -31,11 +45,3 @@ jobs:
       with:
         name: checkov log
         path: ./checkov.log
-    
-    - name: condition 
-      if: ${{ env.bucket_name == 'test' }}
-      run: echo "hello"
-
-    - name: Terraform format
-      run: |
-        terraform fmt -check -diff
