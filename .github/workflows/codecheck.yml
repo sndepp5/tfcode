@@ -32,8 +32,8 @@ jobs:
       if: ${{ env.bucket_name != 's3' && env.dynamodb_name != 'dynamo' }}
       run: |
         cd backend
-        sed -i 's/terraform-up-and-running-statezpl-ccs/env.bucket_name/g' backset.tf
-        sed -i 's/terraform-up-and-running-locks-ccs/env.dynamodb_name/g' backset.tf
+        sed -i 's/terraform-up-and-running-statezpl-ccs/env.bucket_name/g' backend/backend.tf
+        sed -i 's/terraform-up-and-running-locks-ccs/env.dynamodb_name/g' backend/backend.tf
         terraform init
         terraform apply -auto-approve
 
