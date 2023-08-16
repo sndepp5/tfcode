@@ -73,7 +73,10 @@ jobs:
       run: terraform validate
 
     - name: Terraform plan
-      run: terraform plan -out=plan.tfplan
+      run: |
+        terraform refresh
+        terraform plan -out=plan.tfplan
+      
 
     - name: Upload TfPlan Artifact
       uses: actions/upload-artifact@v3
