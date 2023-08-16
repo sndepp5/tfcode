@@ -14,8 +14,3 @@ terraform {
     profile        = "default" 
   } 
 } 
-
-provider "aws" {
-  region = var.region
-  profile = "default"
-}
