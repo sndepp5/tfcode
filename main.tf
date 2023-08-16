@@ -2,7 +2,7 @@
 
 
 resource "aws_s3_bucket" "bucket" {
-    bucket = "ccs-test-terraform-ccs"
+    bucket = "ccs-test-terraform-ccs369"
     tags = {
         Name = "Buc"
         CreatedBy = "Sandeep"
@@ -21,7 +21,7 @@ resource "aws_s3_bucket_public_access_block" "accessblk" {
 
 
 resource "aws_s3_bucket" "logbucket" {
-    bucket = "my-logg-cc-test-cc"
+    bucket = "my-logg-cc-test-ccs369"
 }
 
 resource "aws_s3_bucket_public_access_block" "accessblklog" {
