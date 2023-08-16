@@ -74,7 +74,6 @@ jobs:
 
     - name: Terraform plan
       run: terraform plan -out=plan.tfplan
-      continue-on-error: true
 
     - name: Upload TfPlan Artifact
       uses: actions/upload-artifact@v3
