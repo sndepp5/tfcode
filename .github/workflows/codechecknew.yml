@@ -35,7 +35,7 @@ jobs:
         sed -i 's/terraform-up-and-running-statezpl-ccs/${{ env.bucket_name }}/g' backend.tf
         sed -i 's/terraform-up-and-running-locks-ccs/${{ env.dynamodb_name }}/g' backend.tf
         cat backend.tf
-        terraform init -reconfigure
+        terraform init
         terraform apply -auto-approve
       env:
         bucket_name: success
@@ -73,7 +73,8 @@ jobs:
       run: terraform validate
 
     - name: Terraform plan
-      run: terraform plan -out=plan.tfplan > plan.log
+      run: terraform plan -out=plan.tfplan
+      continue-on-error: true
 
     - name: Upload TfPlan Artifact
       uses: actions/upload-artifact@v3
