@@ -63,4 +63,6 @@ jobs:
         only_warn: true
  
     - name: Terraform format
-      run: terraform fmt -check -diff
+      run: |
+        terraform fmt -diff
+        terraform fmt -check
