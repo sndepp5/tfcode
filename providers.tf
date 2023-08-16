@@ -7,8 +7,8 @@ terraform {
   }
 
   backend "s3" {
-    bucket         = "terraform-up-and-running-statezpl-ccs"
-    dynamodb_table = "terraform-up-and-running-locks-ccs"
+    bucket         = "bshorg-ss-bucket-check"
+    dynamodb_table = "bshorg-dynamodb-table-check"
     key            = "global/terraform.tfstate"
     region         = "eu-central-1"
     profile        = "default" 
