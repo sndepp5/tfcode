@@ -66,8 +66,8 @@ jobs:
  
     - name: Terraform format
       run: |
-        terraform refresh
         terraform init -reconfigure
+        terraform refresh
         terraform fmt -diff
 
     - name: Terraform validate
