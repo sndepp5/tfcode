@@ -56,12 +56,12 @@ resource "aws_s3_bucket_versioning" "versioning_example1" {
   }
 }
 
-# resource "aws_s3_bucket" "bucket3" {
-#     bucket = "ccs-terraform-ccs369"
-#     tags = {
-#         Name = "Buck"
-#         CreatedBy = "Sandeep"
-#     }
-# }
+resource "aws_s3_bucket" "bucket3" {
+    bucket = "ccs-terraform-ccs369"
+    tags = {
+        Name = "Buck"
+        CreatedBy = "Sandeep"
+    }
+}
 
 
