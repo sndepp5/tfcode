@@ -66,6 +66,7 @@ jobs:
  
     - name: Terraform format
       run: |
+        terraform refresh
         terraform init -reconfigure
         terraform fmt -diff
 
@@ -73,9 +74,7 @@ jobs:
       run: terraform validate
 
     - name: Terraform plan
-      run: |
-        terraform refresh
-        terraform plan -out=plan.tfplan
+      run: terraform plan -out=plan.tfplan
       
 
     - name: Upload TfPlan Artifact
