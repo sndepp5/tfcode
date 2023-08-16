@@ -65,8 +65,7 @@ jobs:
     - name: Terraform format
       run: |
         terraform init
-        terraform fmt -diff
-        terraform fmt -check
+        terraform fmt -diff -check
 
     - name: Terraform validate
       run: terraform validate
