@@ -79,3 +79,12 @@ jobs:
       with:
         name: plan.tfplan
         path: .
+
+    - name: Terraform apply
+      run: terraform apply -auto-approve plan.tfplan
+
+    - name: Download TF state file
+      run: |
+        terraform init -reconfigure
+        terraform state pull
+
