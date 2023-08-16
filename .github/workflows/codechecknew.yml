@@ -35,7 +35,7 @@ jobs:
         sed -i 's/terraform-up-and-running-statezpl-ccs/${{ env.bucket_name }}/g' backend.tf
         sed -i 's/terraform-up-and-running-locks-ccs/${{ env.dynamodb_name }}/g' backend.tf
         cat backend.tf
-        terraform init
+        terraform init -reconfigure
         terraform apply -auto-approve
       env:
         bucket_name: success
