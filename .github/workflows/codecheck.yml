@@ -81,7 +81,7 @@ jobs:
         path: .
 
     - name: Terraform apply
-      run: terraform apply -auto-approve plan.tfplan
+      run: terraform apply plan.tfplan
 
     - name: Download TF state file
       run: |
