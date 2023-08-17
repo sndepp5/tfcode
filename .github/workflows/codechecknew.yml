@@ -42,19 +42,19 @@ jobs:
         checkov -d ./ > checkov.log
       continue-on-error: true
     
-    - name: Upload Log as Artifact
-      uses: actions/upload-artifact@v3
-      with:
-          name: checkov log
-          path: ./checkov.log
+    # - name: Upload Log as Artifact
+    #   uses: actions/upload-artifact@v3
+    #   with:
+    #       name: checkov log
+    #       path: ./checkov.log
 
-    - name: Run Terrascan
-      uses: tenable/terrascan-action@main
-      with:
-        iac_type: 'terraform'
-        iac_version: 'v14'
-        policy_type: 'aws'
-        only_warn: true
+    # - name: Run Terrascan
+    #   uses: tenable/terrascan-action@main
+    #   with:
+    #     iac_type: 'terraform'
+    #     iac_version: 'v14'
+    #     policy_type: 'aws'
+    #     only_warn: true
 
   terraform:
     needs: Codecheck
