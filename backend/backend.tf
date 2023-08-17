@@ -36,6 +36,7 @@ resource "aws_dynamodb_table" "terraform_locks" {
   }
 
   server_side_encryption {
+    enabled = true
     kms_master_key_id = aws_kms_key.dynamodb_encryption_key.key_id
   }
 
