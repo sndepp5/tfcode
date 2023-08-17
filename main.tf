@@ -65,7 +65,7 @@ resource "aws_s3_bucket" "bucket3" {
 }
 
 resource "aws_s3_bucket" "bucket9" {
-    bucket = "Tesla-sndepp"
+    bucket = "tesla-sndepp"
     tags = {
         Name = "Buck"
         CreatedBy = "Sandeep"

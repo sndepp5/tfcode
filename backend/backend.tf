@@ -20,6 +20,9 @@ resource "aws_dynamodb_table" "terraform_locks" {
   read_capacity = 20
   write_capacity = 20
 
+  point_in_time_recovery {
+    enabled = true
+  }
 
   attribute {
     name = "LockID"
