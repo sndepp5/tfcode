@@ -18,6 +18,9 @@ resource "aws_dynamodb_table" "terraform_locks" {
   hash_key     = "LockID"
   stream_enabled = true
   stream_view_type = "NEW_AND_OLD_IMAGES"
+  read_capacity = 20
+  write_capacity = 20
+
 
   attribute {
     name = "LockID"
