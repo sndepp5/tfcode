@@ -12,6 +12,15 @@ resource "aws_s3_bucket" "terraform_state" {
   }
 }
 
+resource "aws_s3_bucket_public_access_block" "access" {
+  bucket = aws_s3_bucket.terraform_state.id
+
+  block_public_acls = true
+  block_public_policy = true
+  ignore_public_acls = true
+  restrict_public_buckets = true
+}
+
 #
 
 resource "aws_dynamodb_table" "terraform_locks" {
@@ -27,11 +36,21 @@ resource "aws_dynamodb_table" "terraform_locks" {
   }
 
   server_side_encryption {
-    enabled = true
+    kms_master_key_id = aws_kms_key.dynamodb_encryption_key.key_id
   }
 
   attribute {
     name = "LockID"
     type = "S"
   }
+}
+
+resource "aws_kms_key" "dynamodb_encryption_key" {
+  description             = "DynamoDB Encryption Key"
+  enable_key_rotation    = true
+}
+
+resource "aws_kms_alias" "dynamodb_encryption_key_alias" {
+  name          = "alias/dynamodb_encryption_key"
+  target_key_id = aws_kms_key.dynamodb_encryption_key.key_id
 }
