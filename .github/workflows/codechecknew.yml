@@ -8,7 +8,7 @@ env:
   dynamodb_name: bshorg-dynamodb-table-check
 jobs:
   Codecheck:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
 
     steps:
     - name: Checkout code
