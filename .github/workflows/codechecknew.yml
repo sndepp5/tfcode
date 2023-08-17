@@ -37,6 +37,10 @@ jobs:
         terraform init
         terraform apply -auto-approve
 
+  terraform:
+    needs: Codecheck
+    runs-on: ubuntu-latest
+    steps:
     - name: Checkov GitHub Action
       run: |
         checkov -d ./ > checkov.log
@@ -45,8 +49,8 @@ jobs:
     - name: Upload Log as Artifact
       uses: actions/upload-artifact@v3
       with:
-        name: checkov log
-        path: ./checkov.log
+          name: checkov log
+          path: ./checkov.log
 
     - name: Run Terrascan
       uses: tenable/terrascan-action@main
