@@ -37,10 +37,6 @@ jobs:
         terraform init
         terraform apply -auto-approve
 
-  terraform:
-    needs: Codecheck
-    runs-on: ubuntu-latest
-    steps:
     - name: Checkov GitHub Action
       run: |
         checkov -d ./ > checkov.log
@@ -59,6 +55,11 @@ jobs:
         iac_version: 'v14'
         policy_type: 'aws'
         only_warn: true
+
+  terraform:
+    needs: Codecheck
+    runs-on: ubuntu-latest
+    steps:
 
     - uses: hashicorp/setup-terraform@v2
  
