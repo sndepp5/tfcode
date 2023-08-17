@@ -73,7 +73,7 @@ jobs:
 
     - name: Terraform plan
       run: |
-        terraform force-unlock LockID -yes
+        terraform force-unlock LockID -force
         terraform plan -out=plan.tfplan
 
     - name: Upload TfPlan Artifact
