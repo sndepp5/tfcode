@@ -64,12 +64,12 @@ resource "aws_s3_bucket" "bucket3" {
     }
 }
 
-resource "aws_s3_bucket" "bucket9" {
-    bucket = "tesla-sndepp"
-    tags = {
-        Name = "Buck"
-        CreatedBy = "Sandeep"
-    }
-}
+# resource "aws_s3_bucket" "bucket9" {
+#     bucket = "tesla-sndepp"
+#     tags = {
+#         Name = "Buck"
+#         CreatedBy = "Sandeep"
+#     }
+# }
 
 
