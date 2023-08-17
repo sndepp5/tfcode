@@ -12,6 +12,8 @@ resource "aws_s3_bucket" "terraform_state" {
   }
 }
 
+#
+
 resource "aws_dynamodb_table" "terraform_locks" {
   name         = "terraform-up-and-running-locks-ccs"
   hash_key     = "LockID"
