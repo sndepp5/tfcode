@@ -58,7 +58,7 @@ jobs:
 
   terraform:
     needs: Codecheck
-    runs-on: ubuntu-latest
+    runs-on: ${{ needs.Codecheck.outputs.runner }}
     steps:
 
     - uses: hashicorp/setup-terraform@v2
