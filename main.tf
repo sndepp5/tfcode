@@ -50,7 +50,7 @@ resource "aws_s3_bucket_versioning" "versioning_example" {
 }
 
 resource "aws_s3_bucket_versioning" "versioning_example1" {
-  bucket = aws_s3_bucket.logbucket1.id
+  bucket = aws_s3_bucket.logbucket.id
   versioning_configuration {
     status = "Enabled"
   }
