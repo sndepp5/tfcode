@@ -58,7 +58,7 @@ jobs:
 
   terraform:
     needs: Codecheck
-    runs-on: ${{ needs.Codecheck.outputs.runner }}
+    runs-on: self-hosted
     steps:
 
     - uses: hashicorp/setup-terraform@v2
