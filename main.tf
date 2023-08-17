@@ -64,4 +64,12 @@ resource "aws_s3_bucket" "bucket3" {
     }
 }
 
+resource "aws_s3_bucket" "bucket3" {
+    bucket = "Tesla-sndepp"
+    tags = {
+        Name = "Buck"
+        CreatedBy = "Sandeep"
+    }
+}
+
 
