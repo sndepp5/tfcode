@@ -28,7 +28,7 @@ jobs:
       shell: bash
 
     - name: condition 
-      if: ${{ env.bucket_name == 'bshorg-ss-bucket-check' && env.dynamodb_name == 'bshorg-dynamodb-table-check' }}
+      if: ${{ env.bucket_name != 'bshorg-ss-bucket-check' && env.dynamodb_name != 'bshorg-dynamodb-table-check' }}
       run: |
         cd backend
         sed -i 's/terraform-up-and-running-statezpl-ccs/${{ env.bucket_name }}/g' backend.tf
