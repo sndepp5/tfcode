@@ -19,4 +19,5 @@ jobs:
     - name: Test docker image
       run: |
         terraform --version
+        checkov --version
         echo 1
