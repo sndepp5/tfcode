@@ -1,91 +1,39 @@
-name: Terraform Execution
+name: Cache
+
 on:
   push:
     branches:
       - main
-env:
-  bucket_name: bshorg-ss-bucket-check
-  dynamodb_name: bshorg-dynamodb-table-check
+
 jobs:
-  Codecheck:
+  test:
     runs-on: ubuntu-latest
-
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v3
-
-    - name: Configure AWS Credentials
-      uses: aws-actions/configure-aws-credentials@v2
-      with:
-        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        aws-region: eu-central-1
-
-    - name: Run script file
-      run: |
-        chmod +x scripts.sh
-        ./scripts.sh
-      shell: bash
-
-    - name: condition 
-      if: ${{ env.bucket_name != 'success' && env.dynamodb_name != 'success' }}
-      run: |
-        cd backend
-        sed -i 's/terraform-up-and-running-statezpl-ccs/${{ env.bucket_name }}/g' backend.tf
-        sed -i 's/terraform-up-and-running-locks-ccs/${{ env.dynamodb_name }}/g' backend.tf
-        cat backend.tf
-        terraform init
-        terraform apply -auto-approve
-      env:
-        bucket_name: success
-        dynamodb_name: success
-
-    - name: Checkov GitHub Action
-      run: |
-        checkov -d ./ > checkov.log
-      continue-on-error: true
-    
-    - name: Upload Log as Artifact
-      uses: actions/upload-artifact@v3
-      with:
-        name: checkov log
-        path: ./checkov.log
-
-    - name: Run Terrascan
-      uses: tenable/terrascan-action@main
-      with:
-        iac_type: 'terraform'
-        iac_version: 'v14'
-        policy_type: 'aws'
-        only_warn: true
-        cache: true
-
-    # - uses: hashicorp/setup-terraform@v2
- 
-    # - name: Terraform format
-    #   run: |
-    #     terraform init
-    #     terraform fmt -diff
-
-    # - name: Terraform validate
-    #   run: terraform validate
-
-    # - name: Terraform plan
-    #   run: terraform plan -out=plan.tfplan
-
-    # - name: Upload TfPlan Artifact
-    #   uses: actions/upload-artifact@v3
-    #   with:
-    #     name: plan.tfplan
-    #     path: .
-
-    # - name: Terraform apply
-    #   run: terraform apply -auto-approve plan.tfplan
-
-    # - name: Download TF state file
-    #   run: |
-    #     terraform init -reconfigure
-    #     terraform state pull
-
-
-
+      - name: Get code
+        uses: actions/checkout@v3
+      # - name: Cache
+      #   uses: actions/cache@v3
+      #   with:
+      #     path: ~/.npm
+      #     key: deps-node-${{ hashFiles('**/package-lock.json') }}
+      - name: Install dependencies
+        run: npm ci
+      - name: Lint Code
+        run: npm run lint
+      - name: Test code
+        run: npm run test
+  build:
+    needs: test
+    runs-on: ubuntu-latest
+    # outputs:
+    #   script-file: ${{ steps.publish.outputs.script-file}}
+    steps:
+      - name: Get Code
+        uses: actions/checkout@v3
+      - name: Install dependencies
+        run: npm ci
+      - name: Build website
+        run: npm run build
+      # - name: Publish JS filename
+      #   id: publish
+      #   run: find dist/assets/*.js f -execdir echo '::set-output name=script-file::{}' ';'
