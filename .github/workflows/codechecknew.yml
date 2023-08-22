@@ -3,21 +3,26 @@ on:
   push:
     branches:
       - main
-env:
-  bucket_name: bshorg-ss-bucket-check
-  dynamodb_name: bshorg-dynamodb-table-check
 jobs:
-  Codecheck:
+  build:
     runs-on: ubuntu-latest
-    container:
-      image: xalt/quality_management:latest
-
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-    - name: Test docker image
-      run: |
-        terraform --version
-        checkov --version
-        echo 1
+      - name: Restore Cache
+        uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-npm-
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Save Cache
+        uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
