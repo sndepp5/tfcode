@@ -16,6 +16,8 @@ jobs:
       - uses: actions/setup-node@v3.1.1
         with:
           node-version: v16.14.2
+          cache: 'yarn'
+          cache-dependency-path: yarn.lock
 
       - run: yarn install
 
