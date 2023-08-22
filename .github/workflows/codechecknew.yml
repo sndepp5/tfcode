@@ -21,11 +21,6 @@ jobs:
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         aws-region: eu-central-1
 
-    - uses: actions/cache/restore@v3
-      with:
-        path: ./scripts.sh
-        key: Linux-
-
     - name: Run script file
       run: |
         chmod +x scripts.sh
@@ -63,13 +58,7 @@ jobs:
         iac_version: 'v14'
         policy_type: 'aws'
         only_warn: true
-
-    - name: Save Cache
-      uses: actions/cache/save@v3
-      with:
-        path: ./scripts.sh
-        key: ${{ runner.os }}-${{ hashFiles('**/lockfiles') }}
-
+        cache: true
 
     # - uses: hashicorp/setup-terraform@v2
  
