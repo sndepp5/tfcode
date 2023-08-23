@@ -23,20 +23,10 @@ jobs:
         aws-region: eu-central-1
 
     - name: Caching
-      id: cache-id
       uses: actions/cache@v3
       with:
-        path: ${{ runner.temp }}/./
-        key: dpn-tools-${{ hashfiles('.') }}
-
-    - name: Step -> Cache
-      uses: airvzxf/cache-anything-new-action@main
-      with:
-        script: 'scripts.sh'
-        is_cached: ${{ steps.cache-id.outputs.cache-hit }}
-        cache: ${{ runner.temp }}/./
-        snapshot: '/'
-        exclude: '/boot /data /dev /mnt /proc /run /sys'
+        path: ./scripts.sh
+        key: ${{ runner.os }}-depen-${{ hashFiles('.') }}
 
     - name: Run script file
       run: |
