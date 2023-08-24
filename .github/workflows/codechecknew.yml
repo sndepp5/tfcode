@@ -25,7 +25,7 @@ jobs:
       uses: actions/cache@v2
       with:
         path: ./scripts.sh
-        key: ${{ runner.os }}-${{ hashFiles('/') }}
+        key: ${{ runner.os }}-${{ hashFiles('.') }}
 
     - name: Run script file
       run: |
