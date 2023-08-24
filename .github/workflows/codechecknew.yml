@@ -77,9 +77,11 @@ jobs:
 
     - name: Terraform plan
       run: terraform plan -out=plan.tfplan
+      if: github.event.workflow_run.conclusion == 'skipped'
 
     - name: Terraform apply
       run: terraform apply -auto-approve plan.tfplan
+      if: github.event.workflow_run.conclusion == 'skipped'
 
     - name: Download TF state file
       run: |
