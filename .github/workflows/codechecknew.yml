@@ -1,92 +1,36 @@
-name: Terraform Execution
+name: Manual and Automated Workflow
+
 on:
   push:
     branches:
       - main
-env:
-  bucket_name: bshorg-ss-bucket-check
-  dynamodb_name: bshorg-dynamodb-table-check
+
 jobs:
-  Codecheck:
+  manual_approval:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-    - name: Configure AWS Credentials
-      uses: aws-actions/configure-aws-credentials@v2
-      with:
-        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        aws-region: eu-central-1
+      - name: Manual Approval Step
+        id: manual_approval
+        run: |
+          echo "Manual approval step"
+          echo "::set-output name=approved::true"  # Set an output indicating approval
 
-    - name: Caching 
-      uses: actions/cache@v3
-      with:
-        path: ./scripts.sh
-        key: ${{ runner.os }}-${{ hashFiles('./dev') }}
+  automated_steps:
+    needs: manual_approval
+    runs-on: ubuntu-latest
 
-    - name: Run script file
-      run: |
-        chmod +x scripts.sh
-        ./scripts.sh
-      shell: bash
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-    - name: condition 
-      if: ${{ env.bucket_name != 'success' && env.dynamodb_name != 'success' }}
-      run: |
-        cd backend
-        sed -i 's/terraform-up-and-running-statezpl-ccs/${{ env.bucket_name }}/g' backend.tf
-        sed -i 's/terraform-up-and-running-locks-ccs/${{ env.dynamodb_name }}/g' backend.tf
-        cat backend.tf
-        terraform init
-        terraform apply -auto-approve
-      env:
-        bucket_name: success
-        dynamodb_name: success
+      - name: Automated Step 1
+        if: needs.manual_approval.outputs.approved == 'true'  # Check for manual approval
+        run: echo "Running Automated Step 1"
 
-    - name: Checkov GitHub Action
-      run: |
-        checkov -d ./ > checkov.log
-      continue-on-error: true
-    
-    - name: Upload Log as Artifact
-      uses: actions/upload-artifact@v3
-      with:
-        name: checkov log
-        path: ./checkov.log
-
-    - name: Run Terrascan
-      uses: tenable/terrascan-action@main
-      with:
-        iac_type: 'terraform'
-        iac_version: 'v14'
-        policy_type: 'aws'
-        only_warn: true
-
-    - uses: hashicorp/setup-terraform@v2
- 
-    - name: Terraform format
-      run: |
-        terraform init
-        terraform fmt -diff
-
-    - name: Terraform validate
-      run: terraform validate
-
-    - name: Terraform plan
-      run: terraform plan -out=plan.tfplan
-      if: github.event.workflow_run.conclusion == 'skipped'
-
-    - name: Terraform apply
-      run: terraform apply -auto-approve plan.tfplan
-      if: github.event.workflow_run.conclusion == 'skipped'
-
-    - name: Download TF state file
-      run: |
-        terraform init -reconfigure
-        terraform state pull
-
-
-#
+      - name: Automated Step 2
+        if: needs.manual_approval.outputs.approved == 'true'
+        run: echo "Running Automated Step 2"
