@@ -35,7 +35,7 @@ jobs:
         else
           echo "Script not found"
         fi
-        
+
     - name: Run script file
       run: |
         chmod +x scripts.sh
@@ -85,13 +85,7 @@ jobs:
       run: terraform validate
 
     - name: Terraform plan
-      run: terraform plan -out=plan.tfplan
-
-    - name: Upload TfPlan Artifact
-      uses: actions/upload-artifact@v3
-      with:
-        name: plan.tfplan
-        path: .
+      run: terraform plan -out=plan.tfplan 
 
     - name: Terraform apply
       run: terraform apply -auto-approve plan.tfplan
