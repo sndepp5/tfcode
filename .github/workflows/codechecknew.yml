@@ -28,14 +28,6 @@ jobs:
         path: ./scripts.sh
         key: ${{ runner.os }}-scripts-${{ hashFiles('.') }}
 
-    - name: Use cached script
-      run: |
-        if [ -f ./scripts.sh]; then
-          bash ./scripts.sh
-        else
-          echo "Script not found"
-        fi
-
     - name: Run script file
       run: |
         chmod +x scripts.sh
