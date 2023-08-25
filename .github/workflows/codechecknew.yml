@@ -1,4 +1,4 @@
-name: Manual and Automated Workflow
+name: Manual Approval Example
 
 on:
   push:
@@ -6,31 +6,28 @@ on:
       - main
 
 jobs:
-  manual_approval:
+  deploy:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v2
+      
+      - name: Build and Test
+        run: echo "Building and testing the application"
+      
+      - name: Deploy to Production
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        run: echo "Deploying to production"
 
-      - name: Manual Approval Step
-        id: manual_approval
-        run: |
-          echo "Manual approval step"
-          echo "::set-output name=approved::true"  # Set an output indicating approval
+      - name: Manual Approval
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        id: approval
+        run: echo "::set-output name=approved::true"
 
-  automated_steps:
-    needs: manual_approval
+  notify:
+    needs: deploy
+    if: needs.deploy.outputs.approved == 'true'
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      - name: Automated Step 1
-        if: needs.manual_approval.outputs.approved == 'true'  # Check for manual approval
-        run: echo "Running Automated Step 1"
-
-      - name: Automated Step 2
-        if: needs.manual_approval.outputs.approved == 'true'
-        run: echo "Running Automated Step 2"
+      - name: Notify Success
+        run: echo "Deployment approved and successful"
