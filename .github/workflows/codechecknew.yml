@@ -1,14 +1,28 @@
-on: [push]
-
+name: Terraform Execution
+on:
+  push:
+    branches:
+      - main
+env:
+  bucket_name: bshorg-ss-bucket-check
+  dynamodb_name: bshorg-dynamodb-table-check
 jobs:
-  hello_world_job:
+  Codecheck:
     runs-on: ubuntu-latest
-    name: A job to say hello
+
     steps:
-      - uses: actions/checkout@v3
-      - id: foo
-        uses: actions/tfcode@v1
-        with:
-          who-to-greet: 'Mona the Octocat'
-      - run: echo random-number ${{ steps.foo.outputs.random-number }}
-        shell: bash
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Configure AWS Credentials
+      uses: aws-actions/configure-aws-credentials@v2
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: eu-central-1
+
+    - name: Run script file
+      run: |
+        chmod +x scripts.sh
+        ./scripts.sh
+      shell: bash
