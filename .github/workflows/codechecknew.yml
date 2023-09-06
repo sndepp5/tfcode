@@ -10,5 +10,9 @@ jobs:
         uses: ./.github/actions/make
         with:
           who-to-greet: 'Mona the Octocat'
-      - run: echo random-number ${{ steps.foo.outputs.random-number }}
-        shell: bash
+
+      - name: Checkov GitHub Action
+        run: |
+          checkov -d ./ > checkov.log
+        continue-on-error: true
+      
