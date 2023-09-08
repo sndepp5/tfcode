@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Plan
-        uses: ./.github/actions/plan
+        uses: .github/actions/plan
         with:
           terraform-version: ${{ env.terraformversion }}
           directory: .
