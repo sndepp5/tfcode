@@ -6,8 +6,8 @@ on:
 
 permissions:
   id-token: write
-  contents: read
-  
+  contents: write
+
 env:
   terraformversion: 1.5.7
   region: eu-central-1

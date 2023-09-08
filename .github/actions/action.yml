@@ -19,7 +19,6 @@ inputs:
     required: true
     default: 1.5.7
   
-
 runs:
   using: composite
   steps:
@@ -41,6 +40,5 @@ runs:
         aws-secret-access-key: ${{ inputs.aws-secret-access-key }}
         aws-region: ${{ inputs.aws-region }}  
 
-#3
 
     
