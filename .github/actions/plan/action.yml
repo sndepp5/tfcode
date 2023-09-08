@@ -5,8 +5,8 @@ inputs:
     description: Folder terraform files are stored
     required: true
   aws-access-key-id:
-    description: Access key for AWS account
-    required: true
+      description: Access key for AWS account
+      required: true
   aws-secret-access-key:
     description: Secret key for AWS account
     required: true
@@ -19,26 +19,28 @@ inputs:
     required: true
     default: 1.5.7
   
+
 runs:
   using: composite
   steps:
-
-    - name: Run script file 
-      run: |
+  - name: Run script file 
+    run: |
         chmod +x scripts.sh
         ./scripts.sh
-      shell: bash
+    shell: bash
 
-    - name: Setup Terraform
-      uses: hashicorp/setup-terraform@v2
-      with:
+  - name: Setup Terraform
+    uses: hashicorp/setup-terraform@v2
+    with:
         terraform-version: ${{ inputs.terraform-version }}
 
-    - name: Configure AWS 
-      uses: aws-actions/configure-aws-credentials@v2
-      with:
+  - name: Configure AWS 
+    uses: aws-actions/configure-aws-credentials@v2
+    with:
         aws-access-key-id: ${{ inputs.aws-access-key-id }}
         aws-secret-access-key: ${{ inputs.aws-secret-access-key }}
         aws-region: ${{ inputs.aws-region }}  
+
+
 
     
