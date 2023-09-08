@@ -21,7 +21,7 @@ jobs:
       - name: Terraform Plan
         uses: ./.github/actions
         with:
-          terraform-version: ${{ env.terraformversion }}
+          terraform_version: ${{ env.terraformversion }}
           aws-access-key-id: ${{ secrets.aws-access-key-id}}
           aws-secret-access-key: ${{ secrets.aws-secret-access-key }}
           aws-region: ${{ env.region }}
