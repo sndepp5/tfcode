@@ -13,7 +13,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Terraform Plan
-        uses: ./.github/actions/plan/action.yml@main
+        uses: ./.github/actions/action.yml@main
         with:
           terraform-version: ${{ env.terraformversion }}
           aws-access-key-id: ${{ secrets.aws-access-key-id}}
