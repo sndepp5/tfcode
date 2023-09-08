@@ -1,0 +1,44 @@
+name: Terraform Plan Action
+description: composite action for terraform plan
+inputs:
+  directory:
+    description: Folder terraform files are stored
+    required: true
+  aws-access-key-id:
+    description: Access key for AWS account
+    required: true
+  aws-secret-access-key:
+    description: Secret key for AWS account
+    required: true
+  aws-region:
+    description: Required Region
+    required: true
+    default: eu-central-1
+  terraform-version:
+    description: Current version of Terraform
+    required: true
+    default: 1.5.7
+  
+runs:
+  using: composite
+  steps:
+
+    - name: Run script file 
+      run: |
+        chmod +x scripts.sh
+        ./scripts.sh
+      shell: bash
+
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v2
+      with:
+        terraform-version: ${{ inputs.terraform-version }}
+
+    - name: Configure AWS 
+      uses: aws-actions/configure-aws-credentials@v2
+      with:
+        aws-access-key-id: ${{ inputs.aws-access-key-id }}
+        aws-secret-access-key: ${{ inputs.aws-secret-access-key }}
+        aws-region: ${{ inputs.aws-region }}  
+
+    
