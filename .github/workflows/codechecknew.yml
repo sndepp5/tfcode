@@ -1,6 +1,8 @@
 name: Terraform Plan
 on:
-  workflow_call:
+  push:
+    branches:
+      - main
 env:
   terraformversion: 1.5.7
   region: eu-central-1
