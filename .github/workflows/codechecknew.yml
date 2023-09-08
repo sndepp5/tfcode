@@ -1,23 +1,23 @@
-name: Terraform plan
+# name: Terraform plan
 
-on:
-  push:
-    branches:
-      - main
+# on:
+#   push:
+#     branches:
+#       - main
 
-env:
-  terraformversion: "1.5.7"
-  region: eu-central-1
+# env:
+#   terraformversion: "1.5.7"
+#   region: eu-central-1
 
-jobs:
-  Terraform:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Plan
-        uses: .github/actions/plan
-        with:
-          terraform-version: ${{ env.terraformversion }}
-          directory: .
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }} 
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${{ env.region }}
+# jobs:
+#   Terraform:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Plan
+#         uses: ./.github/actions/plan/action.yml
+#         with:
+#           terraform-version: ${{ env.terraformversion }}
+#           directory: .
+#           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }} 
+#           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+#           aws-region: ${{ env.region }}
