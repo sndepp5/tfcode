@@ -4,9 +4,9 @@ on:
     branches:
       - main
 
-permissions:
-  id-token: write
-  contents: write
+# permissions:
+#   id-token: write
+#   contents: write
 
 env:
   terraformversion: 1.5.7
@@ -15,6 +15,10 @@ env:
 jobs:
   Plan:
     runs-on: ubuntu-latest
+    permissions:
+      packages: write
+      id-token: write
+      contents: write
     steps:
       - name: Checkout
         uses: actions/checkout@v3
