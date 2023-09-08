@@ -1,20 +1,23 @@
-on: [push]
+name: Terraform plan
+
+on:
+  push:
+    branches:
+      - main
+
+env:
+  terraformversion: "1.5.7"
+  region: eu-central-1
 
 jobs:
-  hello_world_job:
+  Terraform:
     runs-on: ubuntu-latest
-    name: A job to say hello
     steps:
-      - uses: actions/checkout@v3
-      - id: foo
-        uses: ./.github/actions/make
+      - name: Plan
+        uses: ./.github/actions/plan
         with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          terraform-version: ${{ env.terraformversion }}
+          directory: .
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }} 
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: eu-central-1
-
-      - name: Checkov GitHub Action
-        run: |
-          checkov -d ./ > checkov.log
-        continue-on-error: true
-      
+          aws-region: ${{ env.region }}
