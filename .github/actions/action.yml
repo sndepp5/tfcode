@@ -5,8 +5,8 @@ inputs:
     description: Folder terraform files are stored
     required: true
   AWS_ACCESS_KEY_ID:
-      description: Access key for AWS account
-      required: true
+    description: Access key for AWS account
+    required: true
   AWS_SECRET_ACCESS_KEY:
     description: Secret key for AWS account
     required: true

@@ -3,10 +3,19 @@ on:
   push:
     branches:
       - main
+  workflow_call:
+    secrets:
+      AWS_ACCESS_KEY_ID:
+        description: Access key for AWS account
+        required: true
+      AWS_SECRET_ACCESS_KEY:
+        description: Secret key for AWS account
+        required: true
 
 env:
   terraformversion: 1.5.7
   region: eu-central-1
+
 
 jobs:
   Plan:
