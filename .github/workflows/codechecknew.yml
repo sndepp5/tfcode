@@ -5,8 +5,6 @@ on:
       - main
 env:
   terraformversion: 1.5.7
-  aws-region: eu-central-1
-
 
 jobs:
   Plan:
@@ -20,5 +18,5 @@ jobs:
           terraform_version: ${{ env.terraformversion }}
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID || inputs.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY || inputs.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${{ env.aws-region || inputs.aws-region }}
+          AWS_REGION: ${{ var.AWS_REGION || inputs.AWS_REGION }}
     
