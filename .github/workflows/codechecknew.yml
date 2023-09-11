@@ -1,17 +1,8 @@
 name: Terraform Plan
 on:
-  # push:
-  #   branches:
-  #     - main
-  workflow_dispatch:
-    secrets:
-      AWS_ACCESS_KEY_ID:
-        description: Access key for AWS account
-        required: true
-      AWS_SECRET_ACCESS_KEY:
-        description: Secret key for AWS account
-        required: true
-
+  push:
+    branches:
+      - main
 env:
   terraformversion: 1.5.7
   region: eu-central-1
