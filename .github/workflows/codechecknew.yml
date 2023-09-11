@@ -5,7 +5,7 @@ on:
       - main
 env:
   terraformversion: 1.5.7
-  region: eu-central-1
+  aws-region: eu-central-1
 
 
 jobs:
