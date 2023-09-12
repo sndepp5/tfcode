@@ -40,7 +40,7 @@ runs:
         aws-region: ${{ inputs.aws-region }}
   
   - name: condition 
-    if: ${{ env.bucket_name != 'success' && env.dynamodb_name != 'success' }}
+    if: ${{ env.bucket_name != 'bshorg-ss-bucket-check' && env.dynamodb_name != 'bshorg-dynamodb-table-check' }}
     run: |
         cd backend
         sed -i 's/terraform-up-and-running-statezpl-ccs/${{ env.bucket_name }}/g' backend.tf
