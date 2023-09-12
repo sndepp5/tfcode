@@ -16,7 +16,7 @@ inputs:
   terraform_version:
     description: Current version of Terraform
     required: true
-    default: 1.5.7
+
   
 runs:
   using: composite
@@ -38,6 +38,21 @@ runs:
         aws-access-key-id: ${{ inputs.aws-access-key-id }}
         aws-secret-access-key: ${{ inputs.aws-secret-access-key }}
         aws-region: ${{ inputs.aws-region }}
+  
+  - name: condition 
+    if: ${{ env.bucket_name != 'success' && env.dynamodb_name != 'success' }}
+    run: |
+        cd backend
+        sed -i 's/terraform-up-and-running-statezpl-ccs/${{ env.bucket_name }}/g' backend.tf
+        sed -i 's/terraform-up-and-running-locks-ccs/${{ env.dynamodb_name }}/g' backend.tf
+        cat backend.tf
+        terraform init
+        terraform apply -auto-approve
+    shell: bash
 
-
+  - name: Checkov GitHub Action
+    run: |
+        checkov -d ./ > checkov.log
+    continue-on-error: true
+    shell: bash
     
