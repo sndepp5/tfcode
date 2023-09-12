@@ -34,7 +34,7 @@ runs:
 
   - name: Configure AWS 
     uses: aws-actions/configure-aws-credentials@v3
-    env:
+    with:
         AWS_ACCESS_KEY_ID: ${{ inputs.AWS_ACCESS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ inputs.AWS_SECRET_ACCESS_KEY }}
         aws-region: eu-central-1
