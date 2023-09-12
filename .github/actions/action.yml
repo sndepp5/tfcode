@@ -10,9 +10,9 @@ inputs:
   AWS_SECRET_ACCESS_KEY:
     description: Secret key for AWS account
     required: true
-  aws-region:
-    description: Required Region
-    required: true
+  # aws-region:
+  #   description: Required Region
+  #   required: true
   terraform_version:
     description: Current version of Terraform
     required: true
@@ -37,7 +37,7 @@ runs:
     env:
         AWS_ACCESS_KEY_ID: ${{ inputs.AWS_ACCESS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ inputs.AWS_SECRET_ACCESS_KEY }}
-        aws-region: ${{ inputs.aws-region }}  
+        # aws-region: ${{ inputs.aws-region }}  
 
 
     
