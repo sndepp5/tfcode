@@ -16,7 +16,6 @@ inputs:
   terraform_version:
     description: Current version of Terraform
     required: true
-
   
 runs:
   using: composite
@@ -85,11 +84,7 @@ runs:
     shell: bash
 
   - name: Terraform apply
-    run: terraform apply -auto-approve plan.tfplan
-    shell: bash
-
-  - name: Download TF state file
     run: |
+      terraform apply -auto-approve plan.tfplan
       terraform init -reconfigure
-      terraform state pull
     shell: bash
