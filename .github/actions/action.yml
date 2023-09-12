@@ -69,4 +69,27 @@ runs:
       iac_version: 'v14'
       policy_type: 'aws'
       only_warn: true
-    
+  
+  - name: Terraform format
+    run: |
+      terraform init
+      terraform fmt -diff
+    shell: bash
+
+  - name: Terraform validate
+    run: terraform validate
+    shell: bash
+
+  - name: Terraform plan
+    run: terraform plan -out=plan.tfplan
+    shell: bash
+
+  - name: Terraform apply
+    run: terraform apply -auto-approve plan.tfplan
+    shell: bash
+
+  - name: Download TF state file
+    run: |
+      terraform init -reconfigure
+      terraform state pull
+    shell: bash
