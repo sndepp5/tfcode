@@ -58,7 +58,6 @@ runs:
     uses: actions/download-artifact@v3
     with:
       name: plan.tfplan
-      path: .
 
   - name: Terraform apply
     run: |
