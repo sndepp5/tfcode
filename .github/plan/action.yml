@@ -86,5 +86,5 @@ runs:
   - name: Upload Plan file
     uses: actions/upload-artifact@v3
     with:
-      name: plan
-      path: ./plan.tfplan
+      name: plan.tfplan
+      path: plan.tfplan
