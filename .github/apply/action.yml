@@ -1,4 +1,4 @@
-name: Terraform Plan Action
+name: Terraform Apply Action
 description: composite action for terraform plan
 inputs:
   directory:
