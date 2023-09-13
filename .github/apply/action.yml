@@ -58,7 +58,6 @@ runs:
     uses: actions/download-artifact@v3
     with:
       name: planf
-      path: .
 
   - name: Terraform apply
     run: |
