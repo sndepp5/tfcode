@@ -1,8 +1,8 @@
 name: Terraform Apply
 on:
-  workflow_dispatch:
+  push:
     branches:
-      main
+      - main
 env:
   terraformversion: 1.5.7
   aws-region: eu-central-1
