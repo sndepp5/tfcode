@@ -1,0 +1,26 @@
+name: Terraform Plan
+on:
+  push:
+    branches:
+      - main
+env:
+  terraformversion: 1.5.7
+  aws-region: eu-central-1
+  bucket_name: bshorg-ss-bucket-check
+  dynamodb_name: bshorg-dynamodb-table-check
+
+jobs:
+  Plan:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Terraform Plan
+        uses: ./.github/plan
+        with:
+          terraform_version: ${{ env.terraformversion }}
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID || inputs.aws-access-key-id }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY || inputs.aws-secret-access-key }}   
+          aws-region: ${{ env.aws-region || inputs.aws-region }} 
+      - name: Bash cmd
+        run: echo 0

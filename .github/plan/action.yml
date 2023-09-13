@@ -1,0 +1,84 @@
+name: Terraform Plan Action
+description: composite action for terraform plan
+inputs:
+  directory:
+    description: Folder terraform files are stored
+    required: true
+  aws-access-key-id:
+    description: Access key for AWS account
+    required: true
+  aws-secret-access-key:
+    description: Secret key for AWS account
+    required: true
+  aws-region:
+    description: Required Region
+    required: true
+  terraform_version:
+    description: Current version of Terraform
+    required: true
+  
+runs:
+  using: composite
+  steps:
+  - name: Run script file 
+    run: |
+        chmod +x scripts.sh
+        ./scripts.sh
+    shell: bash
+
+  - name: Setup Terraform
+    uses: hashicorp/setup-terraform@v2
+    with:
+        terraform_version: ${{ inputs.terraform_version }}
+
+  - name: Configure AWS 
+    uses: aws-actions/configure-aws-credentials@v3
+    with:
+        aws-access-key-id: ${{ inputs.aws-access-key-id }}
+        aws-secret-access-key: ${{ inputs.aws-secret-access-key }}
+        aws-region: ${{ inputs.aws-region }}
+  
+  - name: condition 
+    if: ${{ env.bucket_name != 'bshorg-ss-bucket-check' && env.dynamodb_name != 'bshorg-dynamodb-table-check' }}
+    run: |
+        cd backend
+        sed -i 's/terraform-up-and-running-statezpl-ccs/${{ env.bucket_name }}/g' backend.tf
+        sed -i 's/terraform-up-and-running-locks-ccs/${{ env.dynamodb_name }}/g' backend.tf
+        cat backend.tf
+        terraform init
+        terraform apply -auto-approve
+    shell: bash
+
+  - name: Checkov GitHub Action
+    run: |
+        checkov -d ./ > checkov.log
+    continue-on-error: true
+    shell: bash
+
+  - name: Upload Log as Artifact
+    uses: actions/upload-artifact@v3
+    with:
+      name: checkov log
+      path: ./checkov.log
+
+  - name: Run Terrascan
+    uses: tenable/terrascan-action@main
+    with:
+      iac_type: 'terraform'
+      iac_version: 'v14'
+      policy_type: 'aws'
+      only_warn: true
+  
+  - name: Terraform format
+    run: |
+      terraform init
+      terraform fmt -diff
+    shell: bash
+
+  - name: Terraform validate
+    run: terraform validate
+    shell: bash
+
+  - name: Terraform plan
+    run: terraform plan -out=plan.tfplan
+    shell: bash
