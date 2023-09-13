@@ -55,9 +55,11 @@ runs:
     shell: bash
 
   - name: Download Plan file
-    uses: actions/download-artifact@v3
+    uses: dawidd6/action-download-artifact@v2
     with:
       name: plan.tfplan
+      path: plan.tfplan
+      workflow: plan.yml
 
   - name: Terraform apply
     run: |
