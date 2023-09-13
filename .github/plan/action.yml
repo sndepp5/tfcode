@@ -82,3 +82,9 @@ runs:
   - name: Terraform plan
     run: terraform plan -out=plan.tfplan
     shell: bash
+
+  - name: Upload Plan file
+    uses: actions/upload-artifact@v3
+    with:
+      name: plan.tfplan
+      path: .

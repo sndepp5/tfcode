@@ -54,9 +54,11 @@ runs:
     run: terraform validate
     shell: bash
 
-  - name: Terraform plan
-    run: terraform plan -out=plan.tfplan
-    shell: bash
+  - name: Download Plan file
+    uses: actions/download-artifact@v3
+    with:
+      name: plan.tfplan
+      path: .
 
   - name: Terraform apply
     run: |
