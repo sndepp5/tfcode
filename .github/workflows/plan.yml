@@ -6,7 +6,7 @@ on:
 env:
   terraformversion: 1.5.7
   aws-region: eu-central-1
-  bucket_name: bshorg-ss-bucket-check
+  aws-s3-bucket: bshorg-ss-bucket-check
   dynamodb_name: bshorg-dynamodb-table-check
 
 jobs:
@@ -21,6 +21,7 @@ jobs:
           terraform_version: ${{ env.terraformversion }}
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID || inputs.aws-access-key-id }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY || inputs.aws-secret-access-key }}   
-          aws-region: ${{ env.aws-region || inputs.aws-region }} 
+          aws-region: ${{ env.aws-region || inputs.aws-region }}
+          aws-s3-bucket: ${{ env.aws-s3-bucket || inputs.aws-s3-bucket }}
       - name: Bash cmd
         run: echo 0
