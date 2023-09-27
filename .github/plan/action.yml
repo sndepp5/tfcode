@@ -51,6 +51,7 @@ runs:
   #       terraform init
   #       terraform apply -auto-approve
   #   shell: bash
+  #
 
   - id: check-terraform-backend
     name: Check Terraform remote backend
