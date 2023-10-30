@@ -38,6 +38,7 @@ runs:
         # aws-access-key-id: ${{ inputs.aws-access-key-id }}
         # aws-secret-access-key: ${{ inputs.aws-secret-access-key }}
         role-to-assume: ${{ inputs.arn_role }}
+        role-session-name: Github_to_AWS
         github_token: ${{ inputs.github_token }}
         aws-region: ${{ inputs.aws-region }}
   
