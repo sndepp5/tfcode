@@ -8,6 +8,7 @@ env:
   aws-region: eu-central-1
   aws-s3-bucket: bshorg-ss-bucket-check
   dynamodb_name: bshorg-dynamodb-table-check
+  arn_role: arn:aws:iam::115233747096:role/test-github-oidc
 
 jobs:
   Plan:
@@ -26,6 +27,7 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY || inputs.aws-secret-access-key }}   
           aws-region: ${{ env.aws-region || inputs.aws-region }} 
           aws-s3-bucket: ${{ env.aws-s3-bucket || inputs.aws-s3-bucket }}
+          arn_role: ${{env.arn_role || inputs.arn_role }}
       - name: Bash cmd
         run: echo 0
         
