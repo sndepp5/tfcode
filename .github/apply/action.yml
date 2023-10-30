@@ -13,6 +13,9 @@ inputs:
   aws-region:
     description: Required Region
     required: true
+  github_token:
+    description: Required for plan file
+    required: true
   arn_role:
     description: Required IAM role
     required: true
@@ -35,6 +38,7 @@ runs:
         # aws-access-key-id: ${{ inputs.aws-access-key-id }}
         # aws-secret-access-key: ${{ inputs.aws-secret-access-key }}
         role-to-assume: ${{ inputs.arn_role }}
+        github_token: ${{ inputs.github_token }}
         aws-region: ${{ inputs.aws-region }}
   
   - name: condition 

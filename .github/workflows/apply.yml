@@ -27,7 +27,8 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY || inputs.aws-secret-access-key }}   
           aws-region: ${{ env.aws-region || inputs.aws-region }} 
           aws-s3-bucket: ${{ env.aws-s3-bucket || inputs.aws-s3-bucket }}
-          arn_role: ${{env.arn_role || inputs.arn_role }}
+          arn_role: ${{ env.arn_role || inputs.arn_role }}
+          github_token: ${{ secrets.TOCKEN_GIT || inputs.github_token }}
       - name: Bash cmd
         run: echo 0
         
