@@ -18,8 +18,6 @@ jobs:
       run: |
         TOKEN=${{ secrets.TOCKEN_GIT }}
         ls 
-        ls
-        ls
         echo "BRANCH_NAME=$(basename ${{ github.ref }})" >> $GITHUB_ENV
         BRANCH_NAME="feature/$BRANCH_NAME"
         SOURCE_BRANCH=$BRANCH_NAME  # Replace with the name of your source branch
